@@ -12,4 +12,3 @@ class Square:
     def __init__(self, size):
         """ Initializes size"""
         self.__size = size
-
