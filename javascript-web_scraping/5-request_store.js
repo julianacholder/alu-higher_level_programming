@@ -2,14 +2,18 @@
 const request = require('request');
 const fs = require('fs');
 
-const url = "URL to request";
-const file_path = "file path to store the body response";
+const url = process.argv[2];
+const file_path = process.argv[3];
 
-request(url, function (error, response, body) {
-  if (!error && response.statusCode == 200) {
-    fs.writeFile(file_path, body, 'utf8', function (err) {
-      if (err) throw err;
-      console.log('The file has been saved!');
-    });
-  }
-});
+if (typeof url === 'string') {
+  request(url, function (error, response, body) {
+    if (!error && response.statusCode == 200) {
+      fs.writeFile(file_path, body, 'utf8', function (err) {
+        if (err) throw err;
+        console.log('The file has been saved!');
+      });
+    }
+  });
+} else {
+  console.error('Invalid URL');
+}
