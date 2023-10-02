@@ -2,21 +2,14 @@
 const request = require('request');
 const fs = require('fs');
 
-const url = process.argv[2];
-const outputPath = process.argv[3];
+const url = "URL to request";
+const file_path = "file path to store the body response";
 
-request(url, function (err, response, body) {
-  if (err) {
-    console.error('Error:', err);
-    process.exit(1); // Exit with an error code
+request(url, function (error, response, body) {
+  if (!error && response.statusCode == 200) {
+    fs.writeFile(file_path, body, 'utf8', function (err) {
+      if (err) throw err;
+      console.log('The file has been saved!');
+    });
   }
-
-  if (response.statusCode !== 200) {
-    console.error('Error: HTTP Status Code', response.statusCode);
-    process.exit(1); // Exit with an error code
-  }
-
-  // Write the webpage content to the specified file with UTF-8 encoding
-  fs.writeFileSync(outputPath, body, 'utf-8');
-  console.log(`Webpage content successfully downloaded and saved to ${outputPath}`);
 });
