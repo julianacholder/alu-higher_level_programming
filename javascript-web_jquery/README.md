@@ -1,0 +1,1 @@
+This directory contains javascript jquery code.
